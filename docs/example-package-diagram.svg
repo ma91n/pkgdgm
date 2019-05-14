@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="136px" preserveAspectRatio="none" style="width:289px;height:136px;" version="1.1" viewBox="0 0 289 136" width="289px" zoomAndPan="magnify"><defs><filter height="300%" id="f1up1cfptvooci" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacingAndGlyphs" textLength="138" x="73.5" y="18.6855">package-diagram</text><polygon fill="#FFFFFF" filter="url(#f1up1cfptvooci)" points="6,69.6406,45,69.6406,52,93.25,59,93.25,59,124.8594,6,124.8594,6,69.6406" style="stroke: #000000; stroke-width: 1.5;"/><line style="stroke: #000000; stroke-width: 1.5;" x1="6" x2="52" y1="93.25" y2="93.25"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="33" x="10" y="86.1738">main</text><polygon fill="#FFFFFF" filter="url(#f1up1cfptvooci)" points="204,69.6406,253,69.6406,260,93.25,267,93.25,267,124.8594,204,124.8594,204,69.6406" style="stroke: #000000; stroke-width: 1.5;"/><line style="stroke: #000000; stroke-width: 1.5;" x1="204" x2="260" y1="93.25" y2="93.25"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="43" x="208" y="86.1738">billing</text><polygon fill="#FFFFFF" filter="url(#f1up1cfptvooci)" points="94.5,69.6406,154.5,69.6406,161.5,93.25,168.5,93.25,168.5,124.8594,94.5,124.8594,94.5,69.6406" style="stroke: #000000; stroke-width: 1.5;"/><line style="stroke: #000000; stroke-width: 1.5;" x1="94.5" x2="161.5" y1="93.25" y2="93.25"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="54" x="98.5" y="86.1738">storage</text><!--link main to billing--><path d="M54.118,69.6329 C64.9865,58.0309 79.2032,45.8018 95,39.6406 C125.641,27.6899 138.179,28.1633 169,39.6406 C183.778,45.1436 197.459,55.5707 208.522,66.0509 " fill="none" id="main-billing" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="#A80036" points="212.171,69.6001,208.5077,60.4579,208.5865,66.1142,202.9302,66.1931,212.171,69.6001" style="stroke: #A80036; stroke-width: 1.0;"/><!--link main to storage--><path d="M59.1836,97.1406 C69.2067,97.1406 79.2298,97.1406 89.2529,97.1406 " fill="none" id="main-storage" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="#A80036" points="94.4943,97.1406,85.4943,93.1406,89.4943,97.1406,85.4943,101.1406,94.4943,97.1406" style="stroke: #A80036; stroke-width: 1.0;"/><!--
+@startuml
+title package-diagram
+
+package main{}
+package billing{}
+package billing{}
+package storage{}
+
+main .> billing
+main .> storage
+
+@enduml
+
+PlantUML version 1.2019.03(Sun Mar 10 20:04:44 JST 2019)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Java Version: 1.8.0_201-b09
+Operating System: Windows 10
+OS Version: 10.0
+Default Encoding: MS932
+Language: ja
+Country: JP
+--></g></svg>
