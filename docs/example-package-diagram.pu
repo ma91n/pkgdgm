@@ -1,0 +1,12 @@
+@startuml
+title package-diagram
+
+package main{}
+package billing{}
+package billing{}
+package storage{}
+
+main .> billing
+main .> storage
+
+@enduml
