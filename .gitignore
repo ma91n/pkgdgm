@@ -16,3 +16,6 @@
 
 ### PlantUML ###
 *.pu
+
+### pkgdgm ###
+.pkgdgm
