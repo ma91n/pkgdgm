@@ -5,6 +5,7 @@ import (
 	"go/token"
 	"log"
 	"math"
+	"os"
 	"path/filepath"
 	"strings"
 )
@@ -29,10 +30,17 @@ func (a *pkkParser) contains(s string) bool {
 }
 
 func (a *pkkParser) Do(path string) Dependencies {
-	log.Println("parse dir is "+ path)
+	log.Println("parse dir is " + path)
+
+	filter := func(info os.FileInfo) bool {
+		if strings.HasSuffix(info.Name(), "_test.go") {
+			return false
+		}
+		return true
+	}
 
 	fs := token.NewFileSet()
-	f, err := parser.ParseDir(fs, path, nil, parser.Mode(parser.ImportsOnly))
+	f, err := parser.ParseDir(fs, path, filter, parser.Mode(parser.ImportsOnly))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -71,7 +79,6 @@ type Dependency struct {
 	DependPkgs  []string
 }
 
-
 type Dependencies []Dependency
 
 func (d Dependencies) searchBasePkg() string {
@@ -80,7 +87,7 @@ func (d Dependencies) searchBasePkg() string {
 	for _, v := range d {
 		for _, imp := range v.Imports {
 			pkgLen := len(strings.Split(imp, "/"))
-			if pkgLen < minLen  {
+			if pkgLen < minLen {
 				minLen = pkgLen
 				minPath = imp
 			}

@@ -85,16 +85,15 @@ var rootCmd = &cobra.Command{
 			parsed := parser.Do(filepath.Join(targetPath, v))
 			dependencies = append(dependencies, parsed...)
 		}
-		for _, v := range dependencies {
-			log.Printf("dependencies: %+v\n", v)
-		}
 
+		// complete package name
 		depends := dependencies.Pkgs()
 
 		for _, v := range depends {
 			log.Printf("depends: %+v\n", v)
 		}
 
+		// TODO temporary impl
 		file, err := os.Create("test.pu")
 		if err != nil {
 			return err
