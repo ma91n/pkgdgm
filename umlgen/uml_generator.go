@@ -2,9 +2,10 @@ package umlgen
 
 import (
 	"fmt"
-	"github.com/laqiiz/pkgdiagram/dependency"
 	"io"
 	"strings"
+
+	"github.com/laqiiz/pkgdiagram/dependency"
 )
 
 type generator struct {
@@ -20,9 +21,14 @@ func (g *generator) Do(w io.Writer, dependencies []dependency.Dependency) error 
 	b.WriteString("@startuml\n")
 	b.WriteString("title package-diagram\n\n")
 
-	// package
+	// distinct package name
+	pkgSet := map[string]bool{}
 	for _, v := range dependencies {
-		_, err := fmt.Fprintf(&b, "package %s{}\n", v.PackageName)
+		pkgSet[v.PackageName] = true
+	}
+
+	for k := range pkgSet {
+		_, err := fmt.Fprintf(&b, "package %s{}\n", k)
 		if err != nil {
 			return err
 		}
@@ -30,10 +36,28 @@ func (g *generator) Do(w io.Writer, dependencies []dependency.Dependency) error 
 	b.WriteString("\n")
 
 	// link
-	for _, v := range dependencies {
+	// distinct dependency relations
 
-		for _, dependPkg := range v.DependPkgs {
-			_, err := fmt.Fprintf(&b, "%s .> %s\n", v.PackageName, dependPkg)
+	packageDependencyMap := map[string][]dependency.Dependency{}
+	for _, v := range dependencies {
+		if _, ok := packageDependencyMap[v.PackageName]; !ok {
+			packageDependencyMap[v.PackageName] = make([]dependency.Dependency, 0)
+		}
+		depends := packageDependencyMap[v.PackageName]
+		depends = append(depends, v)
+		packageDependencyMap[v.PackageName] = depends
+	}
+
+	for k, v := range packageDependencyMap {
+		depPkgs := map[string]bool{}
+		for _, dep := range v {
+			for _, depPkg := range dep.DependPkgs {
+				depPkgs[depPkg] = true
+			}
+		}
+
+		for depPkg := range depPkgs {
+			_, err := fmt.Fprintf(&b, "%s .> %s\n", k, depPkg)
 			if err != nil {
 				return err
 			}
