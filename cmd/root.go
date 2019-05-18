@@ -13,17 +13,19 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var targetPath string
+
 func init() {
-	rootCmd.Flags().StringVarP(&format, "format", "f", "JSON", "output format")
+	rootCmd.Flags().StringVarP(&targetPath, "path", "p", ".", "target repository root path")
 }
 
 var rootCmd = &cobra.Command{
-	Use: "pgkdgm",
+	Use:   "pgkdgm",
+	Short: "pkgdgm is a package diagram generator",
+	Long:  "pkgdgm is a tool to analyze package dependencies of Go repository and generate UML text of package diagrams.",
 	RunE: func(cmd *cobra.Command, args []string) error {
 
-		basePath := "/Users/mano/Go/src/github.com/laqiiz/gbilling-report"
-
-		dirs, err := directory.NewWithIgnores(".git", ".idea").Do(basePath)
+		dirs, err := directory.NewWithIgnores(".git", ".idea").Do(targetPath)
 		if err != nil {
 			log.Println(err)
 		}
@@ -32,11 +34,11 @@ var rootCmd = &cobra.Command{
 			log.Printf("%+v\n", dir)
 		}
 
-		parser := dependency.New(filepath.Base(basePath))
+		parser := dependency.New(filepath.Base(targetPath))
 
 		dependencies := make(dependency.Dependencies, 0)
 		for _, v := range dirs {
-			parsed := parser.Do(filepath.Join(basePath, v))
+			parsed := parser.Do(filepath.Join(targetPath, v))
 			dependencies = append(dependencies, parsed...)
 		}
 		for _, v := range dependencies {
@@ -63,8 +65,6 @@ var rootCmd = &cobra.Command{
 		return nil
 	},
 }
-
-var format string
 
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
